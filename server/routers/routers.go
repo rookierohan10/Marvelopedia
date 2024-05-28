@@ -38,4 +38,14 @@ func CreateAppRoutes(router models.Router, logger *zap.Logger) {
 		logger.Info("Fetched Home Route")
 		controllers.HomeController(w, r, logger)
 	})
+
+	r.HandleFunc("/character/{character_id}",func(w http.ResponseWriter, r *http.Request) {
+		logger.Info("Fetched Specific Character Route")
+		controllers.SpecificCharacter(w,r,logger)
+	})
+
+	r.HandleFunc("/character/{character_id}/series",func(w http.ResponseWriter, r *http.Request) {
+		logger.Info("Fetched Character Specific Series route")
+		controllers.SpecificCharacterSeriesCollection(w,r,logger)
+	})
 }
