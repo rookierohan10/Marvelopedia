@@ -103,3 +103,78 @@ func SpecificCharacterSeriesCollection(w http.ResponseWriter, r *http.Request, l
 	w.Header().Set("Content-Type","application/json")
 	json.NewEncoder(w).Encode(series)
 }
+
+func SpecificCharacterComicCollection(w http.ResponseWriter, r *http.Request, logger *zap.Logger){
+	logger.Info("Entered into Character Specific Series Route")
+	vars := mux.Vars(r)
+	charId := vars["character_id"]
+	logger.Sugar().Infoln("Character ID fetched: %s",charId)
+
+	urlString := os.Getenv("HOST")+"characters/"+charId+"/comics?ts="+os.Getenv("TS")+"&apikey="+os.Getenv("PUBLIC_KEY")+"&hash="+os.Getenv("HASH_KEY")
+	logger.Sugar().Infoln("URL String: %s",urlString)
+	response, apierr := http.Get(urlString)
+	if apierr != nil {
+		logger.Sugar().Infoln("Error in fetching URL: %v",apierr.Error())
+	}
+
+	responseData, dataFetchErr := io.ReadAll(response.Body)
+	if dataFetchErr != nil {
+		logger.Sugar().Infoln("Error in reading response body: %v",dataFetchErr.Error())
+	}
+
+	var comics models.CharacterComicsResponse
+	json.Unmarshal(responseData, &comics)
+
+	w.Header().Set("Content-Type","application/json")
+	json.NewEncoder(w).Encode(comics)
+}
+
+func SpecificCharacterEventsCollection(w http.ResponseWriter, r *http.Request, logger *zap.Logger){
+	logger.Sugar().Infoln("Entered into Character Specific Comics Route")
+	vars := mux.Vars(r)
+	charId := vars["character_id"]
+	logger.Sugar().Infoln("Character ID fetched: %s",charId)
+
+	urlString := os.Getenv("HOST")+"characters/"+charId+"/events?ts="+os.Getenv("TS")+"&apikey="+os.Getenv("PUBLIC_KEY")+"&hash="+os.Getenv("HASH_KEY")
+	logger.Sugar().Infoln("URL String: %s",urlString)
+	response, apierr := http.Get(urlString)
+	if apierr != nil {
+		logger.Sugar().Infoln("Error in fetching URL: %v",apierr.Error())
+	}
+
+	responseData, dataFetchErr := io.ReadAll(response.Body)
+	if dataFetchErr != nil {
+		logger.Sugar().Infoln("Error in reading response body: %v", dataFetchErr.Error())
+	}
+
+	var events models.CharacterEventsResponse
+	json.Unmarshal(responseData, &events)
+
+	w.Header().Set("Content-Type","applications/json")
+	json.NewEncoder(w).Encode(events)
+}
+
+func SpecificCharacterStoriesCollection(w http.ResponseWriter, r *http.Request, logger *zap.Logger){
+	logger.Sugar().Infoln("Entered into Character Specific Series Route")
+	vars := mux.Vars(r)
+	charId := vars["character_id"]
+	logger.Sugar().Infoln("Character ID fetched: %s",chardId)
+
+	urlString := os.Getenv("HOST")+"characters/"+charId+"/stories?ts="+os.Getenv("TS")+"&apikey="+os.Getenv("PUBLIC_KEY")+"&hash="+os.Getenv("HASH_KEY")
+	logger.Sugar().Infoln("URL String: %s",urlString)
+	response, apierr := http.Get(urlString)
+	if apierr != nil {
+		logger.Sugar().Infoln("Error in fetching URL: %v", apierr.Error())
+	}
+
+	responseData, dataFetchErr := io.ReadAll(response.Body)
+	if dataFetchErr != nil {
+		logger.Sugar().Infoln("Error in reading response body: %v", dataFetchErr.Error())
+	}
+
+	var stories models.CharacterStoriesResponse
+	json.Unmarshal(responseData, &stories)
+
+	w.Header().Set("Content-Type","application/json")
+	json.NewEncoder(w).Encode(stories)
+}

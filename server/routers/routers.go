@@ -48,4 +48,17 @@ func CreateAppRoutes(router models.Router, logger *zap.Logger) {
 		logger.Info("Fetched Character Specific Series route")
 		controllers.SpecificCharacterSeriesCollection(w,r,logger)
 	})
+
+	r.HandleFunc("/character/{character_id}/comics",func(w http.ResponseWriter, r *http.Request) {
+		logger.Sugar().Infoln("Fetched Character Specific Comic Route")
+		controllers.SpecificCharacterComicCollection(w,r,logger)
+	})
+	r.HandleFunc("/character/{character_id}/events",func(w http.ResponseWriter, r *http.Request) {
+		logger.Sugar().Infoln("Fetched Character Specific Events Route")
+		controllers.SpecificCharacterEventsCollection(w,r,logger)
+	})
+	r.HandleFunc("/character/{character_id}/stories",func(w http.ResponseWriter, r *http.Request) {
+		logger.Sugar().Infoln("Fetched Character Specific Stories Route")
+		controllers.SpecificCharacterStoriesCollection(w,r,logger)
+	})
 }

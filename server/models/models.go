@@ -26,6 +26,36 @@ type CharacterSeriesResponse struct {
 	Data            SeriesData `json:"data"`
 }
 
+type CharacterComicsResponse struct {
+	Code            int        `json:"code"`
+	Status          string     `json:"status"`
+	Copyright       string     `json:"copyright"`
+	AttributionText string     `json:"attributionText"`
+	AttributionHTML string     `json:"attributionHTML"`
+	Etag            string     `json:"etag"`
+	Data            ComicsData `json:"data"`
+}
+
+type CharacterEventsResponse struct {
+	Code            int        `json:"code"`
+	Status          string     `json:"status"`
+	Copyright       string     `json:"copyright"`
+	AttributionText string     `json:"attributionText"`
+	AttributionHTML string     `json:"attributionHTML"`
+	Etag            string     `json:"etag"`
+	Data            EventsData `json:"data"`
+}
+
+type CharacterStoriesResponse struct {
+	Code            int         `json:"code"`
+	Status          string      `json:"status"`
+	Copyright       string      `json:"copyright"`
+	AttributionText string      `json:"attributionText"`
+	AttributionHTML string      `json:"attributionHTML"`
+	Etag            string      `json:"etag"`
+	Data            StoriesData `json:"data"`
+}
+
 type CharacterData struct {
 	Offset  int               `json:"offset"`
 	Limit   int               `json:"limit"`
@@ -40,6 +70,30 @@ type SeriesData struct {
 	Total   int            `json:"total"`
 	Count   int            `json:"count"`
 	Results []SeriesResult `json:"results"`
+}
+
+type ComicsData struct {
+	Offset  int            `json:"offset"`
+	Limit   int            `json:"limit"`
+	Total   int            `json:"total"`
+	Count   int            `json:"count"`
+	Results []ComicsResult `json:"results"`
+}
+
+type EventsData struct {
+	Offset  int            `json:"offset"`
+	Limit   int            `json:"limit"`
+	Total   int            `json:"total"`
+	Count   int            `json:"count"`
+	Results []EventsResult `json:"results"`
+}
+
+type StoriesData struct {
+	Offset  int             `json:"offset"`
+	Limit   int             `json:"limit"`
+	Total   int             `json:"total"`
+	Count   int             `json:"count"`
+	Results []StoriesResult `json:"results"`
 }
 
 type CharacterResult struct {
@@ -61,8 +115,8 @@ type SeriesResult struct {
 	Title       string             `json:"title"`
 	Description string             `json:"description"`
 	Urls        []CharacterURL     `json:"urls"`
-	Startyear   int             `json:"startYear"`
-	Endyear     int             `json:"endYear"`
+	Startyear   int                `json:"startYear"`
+	Endyear     int                `json:"endYear"`
 	Rating      string             `json:"rating"`
 	Type        string             `json:"type"`
 	Modified    string             `json:"modified"`
@@ -72,6 +126,32 @@ type SeriesResult struct {
 	Stories     CharacterStories   `json:"stories"`
 	Comics      CharacterComics    `json:"comics"`
 	Events      CharacterEvents    `json:"events"`
+}
+
+type ComicsResult struct {
+	ID          int `json:"id`
+	DigitalID   int
+	Title       string
+	IssueNumber int
+	Description string
+	Modified    string
+	Format      string
+	PageCount   int
+	TextObjects []TextObjects
+	Urls        []CharacterURL
+	Series      CharacterSeriesItem
+	Thumbnail   CharacterThumbnail
+	Images []CharacterThumbnail
+	Creators Creators
+	Characters Characters
+	Stories CharacterStories
+	Events CharacterEvents
+}
+
+type EventsResult struct {
+}
+
+type StoriesResult struct {
 }
 
 type CharacterThumbnail struct {
